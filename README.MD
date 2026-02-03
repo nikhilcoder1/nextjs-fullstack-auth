@@ -27,23 +27,23 @@ This project implements real-world authentication workflows such as secure signu
 
 ## Getting Started
 
-# 1. Clone the Repository 
+- 1. Clone the Repository 
 ```
 git clone https://github.com/your-username/full-stack-authentication-system.git
 cd full-stack-authentication-system
 ```
 
-# 2. Install Dependencies
+- 2. Install Dependencies
 ```
 npm install
 ```
 
-# 3. Start the Development Server
+- 3. Start the Development Server
 ```
 npm run dev
 ```
 
-# 4. The application will be available at:
+- 4. The application will be available at:
 ```
 http://localhost:3000
 ```
