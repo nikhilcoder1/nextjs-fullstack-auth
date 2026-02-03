@@ -27,26 +27,27 @@ This project implements real-world authentication workflows such as secure signu
 
 ## Getting Started
 
-- 1. Clone the Repository 
+- Clone the Repository 
 ```
-git clone https://github.com/your-username/full-stack-authentication-system.git
+git clone https://github.com/nikhilcoder1/nextjs-fullstack-auth.git
 cd full-stack-authentication-system
 ```
 
-- 2. Install Dependencies
+- Install Dependencies
 ```
 npm install
 ```
 
-- 3. Start the Development Server
+- Start the Development Server
 ```
 npm run dev
 ```
 
-- 4. The application will be available at:
+- The application will be available at:
 ```
 http://localhost:3000
 ```
+
 ## 📧 Email Testing (Mailtrap) 
 
 1. All authentication-related emails (verification & password reset) are sent to Mailtrap
