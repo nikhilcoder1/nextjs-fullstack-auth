@@ -1,19 +1,44 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function SignUpPage() {
+  const router = useRouter();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
+  const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   const onLogin = async () => {
-    try {
-    } catch (error) {}
-  };
+        try {
+            setLoading(true);
+            const response = await axios.post("/api/users/login", user);
+            console.log("Login success", response.data);
+            toast.success("Login success");
+            router.push("/profile");
+        } catch (error:any) {
+            console.log("Login failed", error.message);
+            toast.error(error.message);
+        } finally{
+        setLoading(false);
+        }
+    }
+
+  useEffect(() => {
+    if(user.email.length > 0 && user.password.length > 0){
+      setButtonDisabled(false)
+    } else {
+      setButtonDisabled(true)
+    }
+  }, [user])
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
@@ -22,9 +47,7 @@ export default function SignUpPage() {
         <h1 className="text-3xl font-bold text-gray-100 text-center">
           Welcome Back
         </h1>
-        <p className="text-sm text-gray-400 text-center mt-2">
-          Login to your account
-        </p>
+        <h1 className="text-sm text-gray-400 text-center mt-2">{loading ? "logging you in..." : "Login to get started"}</h1>
 
         {/* Form */}
         <div className="mt-8 space-y-5">
