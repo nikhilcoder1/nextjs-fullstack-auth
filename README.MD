@@ -20,6 +20,7 @@ This project implements real-world authentication workflows such as secure signu
 
 ## Tech Stack
 - Next.js
+- Typescript
 - MongoDB
 - Mailtrap
 - JWT
