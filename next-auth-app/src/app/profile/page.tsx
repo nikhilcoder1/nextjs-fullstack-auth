@@ -6,9 +6,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function ProfilePage() {
-
   const router = useRouter();
-  const [data, setData] = useState("nothing")
+  const [data, setData] = useState("nothing");
 
   const logout = async () => {
     try {
@@ -26,31 +25,58 @@ export default function ProfilePage() {
   };
 
   const getUserDetails = async () => {
-        const res = await axios.get('/api/users/me')
-        console.log(res.data);
-        setData(res.data.data._id)
-  }
+    const res = await axios.get("/api/users/me");
+    setData(res.data.data._id);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-      <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-lg px-10 py-8">
+      <div className="w-full max-w-md bg-gray-800 border border-gray-700 rounded-2xl shadow-xl p-8 space-y-6">
+        {/* Header */}
         <h1 className="text-2xl font-semibold text-gray-100 text-center">
-          Profile Page
+          Profile
         </h1>
-        <hr />
-        <h2 className="p-1 rounded bg-green-500">{data === 'nothing' ? "Nothing" : <Link href={`/profile/${data}`}>{data}
-        </Link>}</h2>
-        <button
-          onClick={logout}
-          className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Logout
-        </button>
 
-        <button
-        onClick={getUserDetails}
-        className="bg-green-800 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >GetUser Details</button>
+        <div className="h-px bg-gray-700" />
+
+        {/* User ID */}
+        <div className="text-center">
+          {data === "nothing" ? (
+            <p className="text-gray-400 text-sm">
+              No user data fetched yet
+            </p>
+          ) : (
+            <Link
+              href={`/profile/${data}`}
+              className="inline-block px-3 py-1 rounded-lg bg-gray-900 text-blue-400 font-mono text-sm hover:underline border border-gray-700"
+            >
+              {data}
+            </Link>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          {/* Get User */}
+          <button
+            onClick={getUserDetails}
+            className="w-full py-2.5 rounded-lg bg-blue-600 text-white font-medium
+                       hover:bg-blue-700 active:scale-[0.98] transition
+                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Get User Details
+          </button>
+
+          {/* Logout */}
+          <button
+            onClick={logout}
+            className="w-full py-2.5 rounded-lg bg-red-600/90 text-white font-medium
+                       hover:bg-red-700 active:scale-[0.98] transition
+                       focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );
