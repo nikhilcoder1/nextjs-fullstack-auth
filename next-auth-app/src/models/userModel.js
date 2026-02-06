@@ -42,7 +42,6 @@ const userSchema = new Schema(
 
     verifyToken: {
       type: String,
-      select: false,
     },
 
     verifyTokenExpiry: Date,
