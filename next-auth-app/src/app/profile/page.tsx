@@ -60,22 +60,18 @@ export default function ProfilePage() {
           {/* Get User */}
           <button
             onClick={getUserDetails}
-            className="w-full py-2.5 rounded-lg bg-blue-600 text-white font-medium
-                       hover:bg-blue-700 active:scale-[0.98] transition
-                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 active:scale-[0.98] transition focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Get User Details
           </button>
 
-          {/* Logout */}
           <button
             onClick={logout}
-            className="w-full py-2.5 rounded-lg bg-red-600/90 text-white font-medium
-                       hover:bg-red-700 active:scale-[0.98] transition
-                       focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full py-2.5 rounded-lg bg-red-600/90 text-white font-medium hover:bg-red-700 active:scale-[0.98] transition focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             Logout
           </button>
+
         </div>
       </div>
     </div>
