@@ -1,34 +1,49 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const path = request.nextUrl.pathname
+  const path = request.nextUrl.pathname;
+  const token = request.cookies.get("token")?.value;
 
-  const publicPaths = ['/login', '/signup', '/verifyemail']
-  const isPublicPath = publicPaths.includes(path)
+  const publicPaths = [
+    "/login",
+    "/signup",
+    "/verifyemail",
+    "/forgotpassword",
+    "/resetpassword",
+  ];
 
-  const token = request.cookies.get('token')?.value
-
-  // user logged in → block login/signup pages
-  if (isPublicPath && token) {
-    return NextResponse.redirect(new URL('/', request.url))
+  // Handle root route explicitly
+  if (path === "/") {
+    if (token) {
+      return NextResponse.redirect(new URL("/profile", request.url));
+    }
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // user not logged in → block protected pages
+  const isPublicPath = publicPaths.includes(path);
+
+  // logged-in user should not access auth pages
+  if (isPublicPath && token && path !== "/resetpassword") {
+    return NextResponse.redirect(new URL("/profile", request.url));
+  }
+
+  // not logged-in user accessing protected route
   if (!isPublicPath && !token) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // otherwise allow
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    '/',
-    '/profile',
-    '/login',
-    '/signup',
-    '/verifyemail'
-  ]
-}
+    "/",
+    "/profile",
+    "/login",
+    "/signup",
+    "/verifyemail",
+    "/forgotpassword",
+    "/resetpassword",
+  ],
+};
