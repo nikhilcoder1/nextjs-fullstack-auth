@@ -20,7 +20,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Please provide a password"],
-      select: false, // 🔥 hide password by default
+      select: false, // hide password by default
     },
 
     isVerified: {
