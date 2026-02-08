@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 export default function VerifyEmailPage() {
@@ -13,7 +13,10 @@ export default function VerifyEmailPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const verifyUserEmail = async () => {
+  // prevents duplicate API calls (important!)
+  const hasVerifiedRef = useRef(false);
+
+  const verifyUserEmail = async (token: string) => {
     try {
       await axios.post("/api/users/verifyemail", { token });
       setVerified(true);
@@ -23,34 +26,43 @@ export default function VerifyEmailPage() {
     }
   };
 
-  // get token from URL
+  // Read token from URL
   useEffect(() => {
     const urlToken = searchParams.get("token");
-    if (urlToken) setToken(urlToken);
+
+    if (!urlToken) {
+      setError(true);
+      return;
+    }
+
+    setToken(urlToken);
   }, [searchParams]);
 
-  // call verify API
+  // Verify email (only once)
   useEffect(() => {
-    if (token.length > 0) {
-      verifyUserEmail();
-    }
+    if (!token || hasVerifiedRef.current) return;
+
+    hasVerifiedRef.current = true;
+    verifyUserEmail(token);
   }, [token]);
 
-  // 🔥 auto redirect after success
-  useEffect(() => {
-    if (verified) {
-      const timer = setTimeout(() => {
-        router.push("/login");
-      }, 2000);
 
-      return () => clearTimeout(timer);
-    }
+  // Auto redirect after success
+  useEffect(() => {
+    if (!verified) return;
+
+    const timer = setTimeout(() => {
+      router.push("/login");
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, [verified, router]);
+
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-[#0b0b0c] px-4 overflow-hidden">
       
-      {/* 🌌 Glow effect */}
+      {/*Glow effect */}
       <div className="absolute w-80 h-80 bg-blue-600/20 blur-3xl rounded-full top-1/3 left-1/2 -translate-x-1/2" />
 
       <div className="w-full max-w-md text-center relative z-10">
