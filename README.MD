@@ -1,67 +1,123 @@
-# Next.js Full Stack Authentication System
+# 🔐 NextAuth App — Full Stack Authentication System
 
-A **production-style full stack authentication system** built using **Next.js**, **MongoDB**, and **Mailtrap**.  
-This project implements real-world authentication workflows such as secure signup/login, email verification, password reset, and protected routes.
+A **production-style authentication system** built using **Next.js App Router**, implementing secure and modern auth flows such as **email verification**, **JWT-based login**, **password reset**, and **route protection using middleware**.
 
-> Designed to closely follow **industry-grade authentication practices** used in modern web applications.
+This project focuses on **real-world authentication problems**, not just UI or basic login forms.
+
+---
+
+## 🚀 Features
+
+### 🔑 Authentication
+- User Signup with hashed passwords
+- Secure Login using JWT (httpOnly cookies)
+- Logout with cookie invalidation
+
+### 📧 Email-Based Flows (Mailtrap)
+- Email Verification after signup
+- Forgot Password (email-based reset link)
+- Reset Password with token & expiry handling
+
+### 🛡️ Security
+- Password hashing using **bcrypt**
+- JWT stored in **httpOnly cookies**
+- Token expiration for verification & reset
+- Protected routes using **Next.js Middleware**
+
+### 🧭 Routing & UX
+- App Router (`/app`) architecture
+- Auto-redirect after email verification
+- Public vs protected route handling
+- Prevents logged-in users from accessing auth pages
+- Clean auth UX (Forgot Password links, redirects)
+
+---
+
+## 🧠 Tech Stack
+
+- **Frontend**: Next.js 14+ (App Router), TypeScript, Tailwind CSS
+- **Backend**: Next.js Route Handlers (API)
+- **Database**: MongoDB + Mongoose
+- **Auth**: JWT, bcrypt
+- **Email**: Nodemailer + Mailtrap
+- **Middleware**: Route-level auth protection
+
+---
+
+## 📂 Project Structure
 
 
-## Features
-- User Registration & Login
-- Secure Password Hashing
-- JWT / Cookie-based Authentication
-- Email Verification Flow
-- Forgot & Reset Password
-- Protected Routes using Middleware
-- Backend APIs with Next.js
-- MongoDB Database Integration
-- Environment-based Configuration
-- Email testing with Mailtrap
 
-## Tech Stack
-- Next.js
-- Typescript
-- MongoDB
-- Mailtrap
-- JWT
-- bcrypt
 
-## Getting Started
 
-- Clone the Repository 
-```
-git clone https://github.com/nikhilcoder1/nextjs-fullstack-auth.git
-cd full-stack-authentication-system
-```
+---
 
-- Install Dependencies
-```
+## 🔄 Authentication Flow
+
+### 📝 Signup & Verification
+1. User signs up
+2. Verification email is sent
+3. User clicks verification link
+4. Account is marked as verified
+5. User is redirected to login
+
+### 🔓 Login
+- Credentials are validated
+- JWT is generated
+- Token is stored in httpOnly cookie
+- Protected routes become accessible
+
+### 🔁 Forgot Password
+1. User requests password reset
+2. Reset email is sent with token
+3. User sets new password
+4. Token is invalidated after use
+
+---
+
+## 🛡️ Middleware Logic
+
+The middleware acts as a **global route guard**:
+
+- Redirects unauthenticated users from protected routes
+- Prevents authenticated users from accessing login/signup pages
+- Handles `/` route based on auth state
+- Allows public access to:
+  - `/login`
+  - `/signup`
+  - `/verifyemail`
+  - `/forgotpassword`
+  - `/resetpassword`
+
+This ensures **clean navigation & security** across the app.
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file:
+
+- MONGO_URI=your_mongodb_connection_string
+- TOKEN_SECRET=your_jwt_secret
+- DOMAIN=http://localhost:3000
+
+- MAILTRAP_USER=your_mailtrap_user
+- MAILTRAP_PASS=your_mailtrap_password
+
+
+---
+
+## ▶️ Running Locally
+
+```bash
 npm install
-```
-
-- Start the Development Server
-```
 npm run dev
+
+Visit : http://localhost:3000
 ```
 
-- The application will be available at:
-```
-http://localhost:3000
-```
+👤 Author
 
-## 📧 Email Testing (Mailtrap) 
-
-1. All authentication-related emails (verification & password reset) are sent to Mailtrap
-2. Prevents sending real emails during development
-3. Makes testing email workflows safe and reliable
-
-## 🎯 Learning Outcomes :
-
-This project helps in understanding:
-
-- Real-world authentication systems
-- Full stack development with Next.js
-- Secure API design
-- MongoDB data modeling
-- Email-based auth workflows
-- Production-ready folder structure
+Nikhil
+Aspiring Full Stack Developer
+Focused on building real-world, production-style applications
