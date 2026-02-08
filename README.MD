@@ -44,11 +44,38 @@ This project focuses on **real-world authentication problems**, not just UI or b
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
-
-
-
+```bash
+src/
+├── app/
+│   ├── api/
+│   │   └── users/
+│   │       ├── signup/
+│   │       ├── login/
+│   │       ├── logout/
+│   │       ├── verifyemail/
+│   │       ├── forgotpassword/
+│   │       └── resetpassword/
+│   │
+│   ├── login/
+│   ├── signup/
+│   ├── profile/
+│   ├── verifyemail/
+│   ├── forgotpassword/
+│   └── resetpassword/
+│
+├── models/
+│   └── userModel.js
+│
+├── dbConfig/
+│   └── dbConfig.ts
+│
+├── middleware.ts
+│
+├── utils/
+│   └── mailer.ts
+```
 
 ---
 
@@ -118,6 +145,6 @@ Visit : http://localhost:3000
 
 👤 Author
 
-Nikhil
-Aspiring Full Stack Developer
-Focused on building real-world, production-style applications
+- Nikhil
+- Aspiring Full Stack Developer
+- Focused on building real-world, production-style applications
