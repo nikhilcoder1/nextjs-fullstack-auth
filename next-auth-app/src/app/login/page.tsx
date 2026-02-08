@@ -100,6 +100,16 @@ export default function SignUpPage() {
           </button>
         </div>
 
+      <div className="flex justify-end mt-2">
+        <Link
+          href="/forgotpassword"
+          className="text-sm text-blue-400 hover:underline"
+        >
+          Forgot password?
+        </Link>
+        </div>
+
+
         {/* Footer */}
         <p className="text-sm text-center text-gray-400 mt-6">
           Don&apos;t have an account?{" "}
