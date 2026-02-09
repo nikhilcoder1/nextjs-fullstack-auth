@@ -150,5 +150,5 @@ Visit : http://localhost:3000
 👤 Author
 
 - Nikhil
-- Aspiring Full Stack Developer
+- Full Stack Developer
 - Focused on building real-world, production-style applications
