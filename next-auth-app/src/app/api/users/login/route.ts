@@ -3,15 +3,16 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { loginSchema } from "@/lib/validators/auth.schema";
+import { ZodError } from "zod";
 
 connectToDatabse();
 
 export async function POST(request: NextRequest){
     
     try {
-        const reqBody = await request.json()
-        const {email, password} = reqBody;
-        console.log(reqBody);
+        const reqBody = await request.json();
+        const { email, password } = loginSchema.parse(reqBody);
 
         // find user + include hidden fields
         const user = await User.findOne({ email }).select("+password +isVerified");
@@ -70,9 +71,16 @@ export async function POST(request: NextRequest){
         return response;
 
     } catch (error: any) {
+        if (error instanceof ZodError) {
+            return NextResponse.json(
+            { error: error.issues[0].message },
+            { status: 400 }
+            );
+        }
+
         return NextResponse.json(
-            {error: error.message}, 
-            {status: 500}
-        )
+            { error: "Internal server error" },
+            { status: 500 }
+        );
     }
 }
