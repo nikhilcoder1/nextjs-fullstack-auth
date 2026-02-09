@@ -5,12 +5,26 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { loginSchema } from "@/lib/validators/auth.schema";
 import { ZodError } from "zod";
+import { rateLimit } from "@/lib/rate-limit";
+
 
 connectToDatabse();
 
 export async function POST(request: NextRequest){
     
     try {
+        const ip =
+            request.headers.get("x-forwarded-for") ??
+            request.headers.get("x-real-ip") ??
+            "unknown";
+
+            if (!rateLimit(ip)) {
+                return NextResponse.json(
+                    { error: "Too many login attempts. Please try again later." },
+                    { status: 429 }
+                );
+            }
+
         const reqBody = await request.json();
         const { email, password } = loginSchema.parse(reqBody);
 
