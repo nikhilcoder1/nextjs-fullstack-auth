@@ -2,7 +2,6 @@ import { connectToDatabse } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import nodemailer from "nodemailer";
 import { resetPasswordSchema } from "@/lib/validators/auth.schema";
 import { ZodError } from "zod";
 
