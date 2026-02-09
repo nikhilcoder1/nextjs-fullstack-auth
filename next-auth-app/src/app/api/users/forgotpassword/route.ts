@@ -5,11 +5,24 @@ import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
 import { forgotPasswordSchema } from "@/lib/validators/auth.schema";
 import { ZodError } from "zod";
+import { rateLimit } from "@/lib/rate-limit";
 
 connectToDatabse();
 
 export async function POST(request:NextRequest){
     try{
+        const ip =
+            request.headers.get("x-forwarded-for") ??
+            request.headers.get("x-real-ip") ??
+            "unknown";
+
+            if (!rateLimit(ip)) {
+                return NextResponse.json(
+                    { error: "Too many requests. Please try again later." },
+                    { status: 429 }
+                );
+            }
+
         const reqBody = await request.json();
         const { email } = forgotPasswordSchema.parse(reqBody);
 

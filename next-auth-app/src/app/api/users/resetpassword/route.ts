@@ -4,12 +4,26 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { resetPasswordSchema } from "@/lib/validators/auth.schema";
 import { ZodError } from "zod";
+import { rateLimit } from "@/lib/rate-limit";
 
 connectToDatabse();
 
 export async function POST(request: NextRequest) {
 
   try {
+    const ip =
+      request.headers.get("x-forwarded-for") ??
+      request.headers.get("x-real-ip") ??
+      "unknown";
+
+        if (!rateLimit(ip)) {
+          return NextResponse.json(
+            { error: "Too many attempts. Please try again later." },
+            { status: 429 }
+          );
+        }
+
+
     const body = await request.json();
     const { token, password } = resetPasswordSchema.parse(body);
 
