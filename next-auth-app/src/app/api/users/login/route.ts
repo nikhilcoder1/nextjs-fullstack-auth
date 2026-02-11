@@ -7,7 +7,6 @@ import { loginSchema } from "@/lib/validators/auth.schema";
 import { ZodError } from "zod";
 import { rateLimit } from "@/lib/rate-limit";
 
-
 connectToDatabse();
 
 export async function POST(request: NextRequest){
