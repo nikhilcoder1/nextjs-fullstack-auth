@@ -23,7 +23,6 @@ export async function POST(request: NextRequest) {
           );
         }
 
-
     const body = await request.json();
     const { token, password } = resetPasswordSchema.parse(body);
 
