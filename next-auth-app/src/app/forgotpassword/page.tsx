@@ -23,6 +23,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-xl w-full max-w-md">
+
         <h1 className="text-2xl font-bold text-white text-center">
           Forgot Password
         </h1>
@@ -42,6 +43,7 @@ export default function ForgotPasswordPage() {
         >
           {loading ? "Sending..." : "Send Reset Link"}
         </button>
+
       </div>
     </div>
   );
