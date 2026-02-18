@@ -28,7 +28,6 @@ export default function SignUpPage() {
       }
   }, [user])
   
-
   const onSignUp = async () => {
     try 
     {
