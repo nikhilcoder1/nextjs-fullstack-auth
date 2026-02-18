@@ -109,7 +109,6 @@ export default function SignUpPage() {
         </Link>
         </div>
 
-
         {/* Footer */}
         <p className="text-sm text-center text-gray-400 mt-6">
           Don&apos;t have an account?{" "}
