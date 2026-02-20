@@ -57,6 +57,7 @@ export default function SignUpPage() {
 
         {/* Form */}
         <div className="mt-8 space-y-5">
+
           {/* Username */}
           <div className="flex flex-col gap-1">
             <label
@@ -76,6 +77,7 @@ export default function SignUpPage() {
               className="px-4 py-2 rounded-lg bg-gray-900 text-gray-100 border border-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
           </div>
+
 
           {/* Email */}
           <div className="flex flex-col gap-1">
@@ -97,6 +99,7 @@ export default function SignUpPage() {
             />
           </div>
 
+
           {/* Password */}
           <div className="flex flex-col gap-1">
             <label
@@ -117,6 +120,7 @@ export default function SignUpPage() {
             />
           </div>
 
+
           {/* Button */}
           <button
             onClick={onSignUp}
@@ -126,6 +130,7 @@ export default function SignUpPage() {
             {buttonDisabled ? "Please fill all fields" : "Sign Up"}
           </button>
         </div>
+
 
         {/* Footer */}
         <p className="text-sm text-center text-gray-400 mt-6">
